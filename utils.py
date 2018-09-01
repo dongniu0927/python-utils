@@ -1,4 +1,17 @@
 import numpy as np
+import json
+
+
+class Encoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        else:
+            return super(Encoder, self).default(obj)
 
 
 class Utils(object):
@@ -42,3 +55,9 @@ class Utils(object):
         if len(vec1) != len(vec2):
             Utils.print_verify_failed("length are " + str(len(vec1)) + " and "+str(len(vec2)))
             raise BaseException("Must have same length!")
+
+    @staticmethod
+    def verify_len(vec, l):
+        if len(vec) != l:
+            Utils.print_verify_failed("wrong length:"+str(len(vec)))
+            raise BaseException("Vec length wrong!")
