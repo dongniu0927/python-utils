@@ -61,3 +61,24 @@ class Utils(object):
         if len(vec) != l:
             Utils.print_verify_failed("wrong length:"+str(len(vec)))
             raise BaseException("Vec length wrong!")
+
+    @staticmethod
+    def save_json(filename, data_source):
+        try:
+            with open(filename, "w") as f:
+                json.dump(data_source, f, sort_keys=True,  separators=(',', ': '))  # indent=4
+                print("Data saved to "+filename)
+                return True
+        except BaseException as e:
+            print("Wrong data: ", data_source)
+            raise BaseException("Exception of save json: ", e)
+
+    @staticmethod
+    def load_json(filename):
+        try:
+            with open(filename) as f:
+                print("Success load "+filename)
+                return json.load(f)
+        except BaseException as e:
+            print("Exception of load json: ", e)
+            return False
