@@ -18,7 +18,7 @@ class Utils(object):
 
     @staticmethod
     def _print_verify_failed(hope, real):
-        print("Hope ", hope, ", but got ", real)
+        print("Verify failed: hope "+str(hope), ", but got "+str(real)+".")
 
     @staticmethod
     def verify_str(s):
