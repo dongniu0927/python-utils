@@ -17,43 +17,43 @@ class Encoder(json.JSONEncoder):
 class Utils(object):
 
     @staticmethod
-    def print_verify_failed(hope, real):
+    def _print_verify_failed(hope, real):
         print("Hope ", hope, ", but got ", real)
 
     @staticmethod
     def verify_str(s):
         if not isinstance(s, str):
-            Utils.print_verify_failed("str", type(s))
+            Utils._print_verify_failed("str", type(s))
             raise BaseException("Must be a str type!")
 
     @staticmethod
     def verify_list(arr):
         if not isinstance(arr, list):
-            Utils.print_verify_failed("list", type(arr))
+            Utils._print_verify_failed("list", type(arr))
             raise BaseException("Must be a list type!")
 
     @staticmethod
     def verify_ndarray(arr):
         if not isinstance(arr, np.ndarray):
-            Utils.print_verify_failed("np.ndarray", type(arr))
+            Utils._print_verify_failed("np.ndarray", type(arr))
             raise BaseException("Must be a np.ndarray type!")
 
     @staticmethod
     def verify_list_like(arr):
         if not isinstance(arr, (list, tuple, np.ndarray)):
-            Utils.print_verify_failed("list, tuple, np.ndarray", type(arr))
+            Utils._print_verify_failed("list, tuple, np.ndarray", type(arr))
             raise BaseException("Must be a list or tuple or np.ndarray!")
 
     @staticmethod
     def verify_equal_len(vec1, vec2):
         if len(vec1) != len(vec2):
-            Utils.print_verify_failed("equal", len(vec1) + "," + len(vec2))
+            Utils._print_verify_failed("equal", len(vec1) + "," + len(vec2))
             raise BaseException("Must have same length!")
 
     @staticmethod
     def verify_len(vec, l):
         if len(vec) != l:
-            Utils.print_verify_failed(l, len(vec))
+            Utils._print_verify_failed(l, len(vec))
             raise BaseException("Must have equal length as given!")
 
     @staticmethod
