@@ -69,7 +69,7 @@ class Utils(object):
     def save_json(filename, data_source):
         try:
             with open(filename, "w") as f:
-                json.dump(data_source, f, sort_keys=True,  separators=(',', ': '))  # indent=4
+                json.dump(data_source, f, sort_keys=True,  separators=(',', ': '), cls=Encoder)
                 print("Data saved to "+filename+".")
                 return True
         except BaseException as e:
