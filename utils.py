@@ -1,5 +1,6 @@
 import numpy as np
 import json
+import time
 
 
 class Encoder(json.JSONEncoder):
@@ -12,6 +13,21 @@ class Encoder(json.JSONEncoder):
             return obj.tolist()
         else:
             return super(Encoder, self).default(obj)
+
+
+class Timer(object):
+    """
+    Record the consumed time when ran a code block.
+    """
+    def __init__(self, block_name):
+        self.block_name = block_name
+
+    def __enter__(self):
+        self.time_start = time.time()
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        elapsed_time = time.time() - self.time_start
+        print("Finished '"+self.block_name+"' block, time used:", str(elapsed_time)+"s.")
 
 
 class Utils(object):
@@ -74,3 +90,14 @@ class Utils(object):
                 return True
         except BaseException as e:
             raise BaseException("Exception of save json: ", e)
+
+
+class TestUtils(object):
+    def test_timer(self):
+        with Timer("Test"):
+            pass
+
+
+if __name__ == "__main__":
+    test = TestUtils()
+    test.test_timer()
