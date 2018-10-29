@@ -1,6 +1,10 @@
 import numpy as np
 import json
 import time
+import pickle
+import logging
+
+LOGGER = logging.getLogger(__name__)
 
 
 class Encoder(json.JSONEncoder):
@@ -90,6 +94,21 @@ class Utils(object):
                 return True
         except BaseException as e:
             raise BaseException("Exception of save json: ", e)
+
+    @staticmethod
+    def pickle(filename, data):
+        with open(filename, "wb") as f:
+            pickle.dump(data, f)
+
+    @staticmethod
+    def unpickle(filename):
+        try:
+            with open(filename, "rb") as f:
+                res = pickle.load(f)
+            return res
+        except IOError:
+            LOGGER.debug('Unpickle error. Cannot find file: %s', filename)
+            return None
 
 
 class TestUtils(object):
