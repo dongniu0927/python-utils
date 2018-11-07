@@ -3,6 +3,9 @@ import json
 import time
 import pickle
 import logging
+import numpy.linalg as la  # 计算范数
+import os
+import sys
 
 LOGGER = logging.getLogger(__name__)
 
@@ -32,7 +35,7 @@ class Timer(object):
         self.time_start = time.time()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        elapsed_time = time.time() - self.time_start
+        elapsed_time = round(time.time() - self.time_start, 2)
         print(self.prefix+"Finished '"+self.block_name+"' block, time used:", str(elapsed_time)+"s.")
 
 
@@ -111,6 +114,27 @@ class Utils(object):
         except IOError:
             LOGGER.debug('Unpickle error. Cannot find file: %s', filename)
             return None
+
+    @staticmethod
+    def normalize(v):
+        Utils.verify_list(v)
+        norm = la.norm(v, 2) + 0.00001
+        v_new = []
+        for i in range(len(v)):
+            v_new.append(round(v[i] / norm, 4))
+        return v_new
+
+    @staticmethod
+    def file_exist(file_path):
+        return os.path.isfile(file_path)
+
+    @staticmethod
+    def get_working_path():
+        return os.path.split(os.path.abspath(sys.argv[0]))[0]
+
+    @staticmethod
+    def list_files(dir_path):
+        return os.listdir(dir_path)
 
 
 class TestUtils(object):
