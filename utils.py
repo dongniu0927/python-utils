@@ -23,15 +23,17 @@ class Timer(object):
     """
     Record the consumed time when ran a code block.
     """
-    def __init__(self, block_name):
+    def __init__(self, block_name, prefix="----->"):
         self.block_name = block_name
+        self.prefix = prefix
 
     def __enter__(self):
+        print(self.prefix+"Started '"+self.block_name+"' block...")
         self.time_start = time.time()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         elapsed_time = time.time() - self.time_start
-        print("Finished '"+self.block_name+"' block, time used:", str(elapsed_time)+"s.")
+        print(self.prefix+"Finished '"+self.block_name+"' block, time used:", str(elapsed_time)+"s.")
 
 
 class Utils(object):
